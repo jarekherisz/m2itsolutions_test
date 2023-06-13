@@ -19,7 +19,20 @@ class ProductSaveAfter implements \Magento\Framework\Event\ObserverInterface
     public function execute(
         \Magento\Framework\Event\Observer $observer
     ) {
-        // TODO Zapisz do logu magento informację o tym jaki produkt został zapisany
+        /** @var \Magento\Catalog\Model\Product $product */
+        $product = $observer->getEvent()->getProduct();
+
+        if ($product) {
+            $productName = $product->getName();
+            $productId = $product->getId();
+
+            //Uzyskaj obiekt loggera
+            $logger = \Magento\Framework\App\ObjectManager::getInstance()
+                ->get(\Psr\Log\LoggerInterface::class);
+
+            //Zaloguj informacje
+            $logger->info('Produkt zapisany: ID = ' . $productId . ', Nazwa = ' . $productName);
+        }
     }
 }
 
