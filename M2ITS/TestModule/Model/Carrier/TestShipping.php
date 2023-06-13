@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace M2ITS\Testmodule\Model\Carrier;
+namespace M2ITS\TestModule\Model\Carrier;
 
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Shipping\Model\Rate\Result;
