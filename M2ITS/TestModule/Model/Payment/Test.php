@@ -16,8 +16,18 @@ class Test extends \Magento\Payment\Model\Method\AbstractMethod
     public function isAvailable(
         \Magento\Quote\Api\Data\CartInterface $quote = null
     ) {
-        // TODO płatność ma być dostępna tylko przy wybraniu naszej metody wysyłki
-        return parent::isAvailable($quote);
+        if ($quote === null) {
+            return false; // Jeśli koszyk jest pusty, metoda płatności nie jest dostępna
+        }
+
+        $shippingMethod = $quote->getShippingAddress()->getShippingMethod();
+
+
+        if ($shippingMethod === 'testshipping_testshipping') {
+            return parent::isAvailable($quote);
+        }
+
+        return false; // Jeżeli nie została wybrana nasza metoda wysyłki, metoda płatności nie jest dostępna
     }
 }
 
